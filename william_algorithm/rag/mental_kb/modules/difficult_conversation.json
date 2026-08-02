@@ -1,0 +1,77 @@
+{
+  "module_id": "difficult_conversation",
+  "name": "困难对话准备",
+  "summary": "用于想开口却迟迟开不了口、需要准备和父母/伴侣/老板谈一件难事的场景。",
+  "keywords": [
+    "不知道怎么开口",
+    "怎么说",
+    "不敢说",
+    "和妈妈说",
+    "和爸爸说",
+    "和伴侣谈",
+    "和老板谈",
+    "沟通",
+    "开口",
+    "说出口",
+    "difficult conversation",
+    "hard conversation"
+  ],
+  "when_to_use": [
+    "用户知道自己需要表达，但担心冲突、误解、失望或关系后果",
+    "用户需要先澄清自己真正想说什么、怕什么"
+  ],
+  "when_not_to_use": [
+    "存在家暴、胁迫或人身安全风险时，不要把重点放在优化表达技巧",
+    "用户处于危机状态，无法进行有组织的准备"
+  ],
+  "goals": [
+    "帮助用户分清事实、需求、担心和希望",
+    "给出一个更容易说出口的第一句话或第一段"
+  ],
+  "response_requirements": [
+    "最终回复至少要明确触及以下之一：最怕对方怎么回应、最想让对方听见的一句话、或一句能说出口的开场",
+    "不能只做泛泛安慰或泛追问；默认控制在 2 到 3 句，最多一个问题"
+  ],
+  "must_do": [
+    "先帮用户看见他卡住的不只是表达技巧，还有关系后果的担心",
+    "把目标收窄到这次最想让对方听见的一件事"
+  ],
+  "nice_to_do": [
+    "如果合适，可以给一句开场白示例",
+    "可以帮助区分这次目标是表达、协商，还是设边界"
+  ],
+  "assessment_questions": [
+    "如果你真的开口，你最怕对方会怎么回应？",
+    "这次对话里，你最想让对方听见的一句话是什么？"
+  ],
+  "psychoeducation_points": [
+    "困难对话常常卡住，不是因为你不知道事实，而是因为你同时在保护关系、保护自己，也在害怕后果。",
+    "先把你真正想传达的核心收窄，通常比准备一整篇说明更有用。"
+  ],
+  "micro_interventions": [
+    "把对话拆成‘我想表达什么 / 我最怕什么 / 我希望对方至少知道什么’。",
+    "优先生成一句能说出口的开场，而不是整段完美稿。",
+    "如果适合，提醒用户先判断这次目标是表达、协商，还是设边界。"
+  ],
+  "followup_questions": [
+    "如果这次只说清一件事，你最希望是哪一件？"
+  ],
+  "do_not": [
+    "不要替用户做价值判断或逼他立刻去谈",
+    "不要承诺只要说得好对方就会理解",
+    "不要忽略关系中的权力差和安全问题"
+  ],
+  "style_freedom_note": "不需要每次都给模板。很多时候先把怕什么说清楚，比立刻产出开场白更重要。",
+  "source_refs": [
+    {
+      "title": "Depression in adults: treatment and management",
+      "organization": "NICE",
+      "url": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendation"
+    },
+    {
+      "title": "Brief structured psychological interventions",
+      "organization": "WHO mhGAP",
+      "url": "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/mental-health-gap-action-programme/evidence-centre/anxiety/brief-structured-psychological-interventions"
+    }
+  ]
+}

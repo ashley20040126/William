@@ -1,0 +1,5 @@
+node_modules/.bin/mime
+/node_modules
+/uploads
+
+.env

@@ -1,0 +1,193 @@
+To Do:
+1, Rerank model可以本地部署，比如使用BGE reranker等等
+
+
+FastAPI 服务模式：
+
+```bash
+cd william_algorithm/rag
+uv sync
+.venv/bin/python3 -m uvicorn rag_service:app --host 127.0.0.1 --port 8010
+```
+
+如果你要启用 `CohereRerank`：
+
+```bash
+cd william_algorithm/rag
+uv sync --extra rerank
+```
+
+如果不想在 `william_algorithm/rag` 下单独建虚拟环境，也可以在 `Development/backend/.env` 里显式指定：
+
+```bash
+RAG_SERVICE_PYTHON=/abs/path/to/python3
+```
+
+服务会按照 `.env` 中的 `RAG_PRELOAD_EXPERTS` 预加载索引，`POST /query` 用于对话查询，`GET /health` 用于健康检查。
+
+建议配套的 `.env` 关键项：
+
+```bash
+OPENAI_API_KEY=...
+RAG_DEFAULT_EXPERT=li_songwei
+RAG_PRELOAD_EXPERTS=li_songwei
+RAG_SERVICE_HOST=127.0.0.1
+RAG_SERVICE_PORT=8010
+RAG_STYLE_MODE=single_pass
+```
+
+说明：
+
+- `RAG_STYLE_MODE=single_pass`
+  - 默认推荐
+  - 在一次生成里同时完成检索问答和风格注入
+  - 延迟明显低于“先生成、再重写”的双调用模式
+- `RAG_PRELOAD_EXPERTS`
+  - 服务启动时预热索引
+  - 预热完成后，首条消息不会再因为临时加载向量索引而额外变慢
+
+当前 `Development/backend` 对它的依赖关系是：
+
+- `Digital Expert` 模式调用 `POST /query`
+- 默认请求地址为 `http://127.0.0.1:8010`
+- 如果 `backend/.env` 中 `RAG_SERVICE_AUTOSTART=true`，后端会尝试自动拉起这个服务
+
+### 心理知识库 V1
+
+`Digital Expert` 现在不仅依赖专家语料 RAG，还会在生成前叠加一层结构化心理支持知识：
+
+- 目录：`william_algorithm/rag/mental_kb/`
+- `safety/risk_policy.json`
+  - 高风险表达、危机分流和资源提示
+- `modules/*.json`
+  - 面向复杂心理支持场景的结构化模块
+
+当前首批模块：
+
+- `anxiety_escalation`
+- `rumination`
+- `difficult_conversation`
+- `boundaries_relationship`
+- `sleep_disruption`
+- `low_mood_inertia`
+
+模块 schema 除了 `must_do / nice_to_do / do_not`，现在还包含 `response_requirements`：
+
+- 用来约束“最终回复至少要体现什么”
+- 例如困难对话场景，要求最终回复至少落到：
+  - 最怕对方怎么回应
+  - 最想让对方听见的一句话
+  - 一个可开口的开场
+
+系统流程：
+
+1. 先做 `risk screening`
+2. 再基于当前问题、记忆上下文、最近对话选一个模块
+3. 把模块里的提问、解释、微动作、禁区和来源锚点注入 prompt
+4. 最后再由 LLM 按 `李松蔚` 风格生成自然语言
+
+V1 的知识来源优先使用：
+
+- WHO `mhGAP`
+- NICE 指南
+- VA/CBT-I 公开材料
+- 988 Lifeline
+
+这层知识库的目标不是“替代治疗”，而是让 `Digital Expert` 在高频心理支持场景里更稳、更有边界。
+
+### Classic 复用方式
+
+`Development/backend/src/services/mentalSupportService.js` 会读取同一套 `mental_kb` 数据，给 `William Classic` 生成精简支持规则：
+
+- 高风险表达优先走 safety policy
+- 普通支持场景只注入精简版模块 guidance
+- `Classic` 仍然保持自然、短答，不会直接复制 `Digital Expert` 的完整结构
+
+### 评测脚本
+
+```bash
+cd william_algorithm/rag
+python3 evaluate_mental_kb.py
+python3 evaluate_support_quality.py
+```
+
+评测集：
+
+- `mental_kb/evals/routing_cases_v2.json`
+  - 42 条路由样本
+  - 校验风险等级和模块命中
+- `mental_kb/evals/quality_cases_v1.json`
+  - 24 条质量样本
+  - 校验回复是否自然、不过度模板化、不过度说教、不会误用危机语言
+
+当前默认标准：
+
+- `evaluate_mental_kb.py`
+  - 通过率 `42/42`
+  - 同时输出 `risk accuracy` 和 `module accuracy`
+- `evaluate_support_quality.py`
+  - 通过率 `24/24`
+  - 输出 `safety / naturalness / anti_template / module_alignment`
+
+质量评测不是判断“知识路由是否命中”，而是判断“最终回复像不像真的可用支持回复”。
+
+如果要拿真实模型回复做回归，可以把真实回复整理成和 `quality_cases_v1.json` 相同的结构，再执行：
+
+```bash
+python3 evaluate_support_quality.py --cases /tmp/your_real_reply_cases.json
+```
+
+
+┌──────────────┐
+│  Knowledge   │  ← 文档内容（txt/md）
+└──────┬───────┘
+       ↓
+┌──────────────┐
+│  Raw Answer  │  ← 标准 RAG 检索后回答
+└──────┬───────┘
+       ↓
+┌──────────────┐
+│ Style Profile│  ← LLM 从 .txt（对话历史）中总结说话风格
+└──────┬───────┘
+       ↓
+┌──────────────┐
+│ Style Rewrite│  ← 按这个人的说话风格改写
+└──────────────┘
+
+
+
+标准 RAG 函数实现为：
+Ingest: 批量扫描文件夹
+Chunking: chunk_size=400, chunk_overlap=60
+Indexing: text-embedding-3-large FAISS本地索引(working_dir) + BM25 索引
+Retrieval: Hybrid并联召回 EnsembleRetriever(retrievers=[bm25, vec], weights=[w_bm25, w_vec])
+Rerank: 默认关闭(ENABLE_RERANK = False) 开启后用 cohere rerank, 仅保留 top_n=6
+Compression: 已关闭 # 如果开启，会让耗时 2s --> 120s
+Generation: prompt 约束
+
+
+合并为两个功能：
+ingest(input_dir: str, working_dir: str)
+query(question: str, working_dir: str)
+
+
+使用时首先:
+export OPENAI_API_KEY=""
+export COHERE_API_KEY="" # 可选：只有开启 ENABLE_RERANK 才会用到，目前不用开启
+
+然后通过 CLI 调用两个函数
+
+使用示例（数据: ./data/罗振宇/*.txt）
+
+**** 知识库构建
+往知识库中批量加入一个目录:
+uv run python rag.py ingest ./data/罗振宇
+
+**** 问答
+普通查询:
+uv run python rag.py query "介绍你的经历" --name 罗振宇
+
+** 说话风格提取（从对话历史 .txt 生成风格文件）
+uv run python style_rewrite.py extract ./data/罗振宇/survey_2.txt --name 罗振宇
+** 带风格重写的查询: （如果存在 ./rag_storage/罗振宇/罗振宇_style.txt）
+uv run python rag.py query "介绍你的经历" --name 罗振宇

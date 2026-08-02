@@ -1,0 +1,14 @@
+[Unit]
+Description=William Voice Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/srv/william/william_algorithm/voice
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/william/william_algorithm/voice/.venv/bin/python3 -m uvicorn voice_service:app --host 127.0.0.1 --port 8020
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

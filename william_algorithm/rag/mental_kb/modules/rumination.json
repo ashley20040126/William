@@ -1,0 +1,81 @@
+{
+  "module_id": "rumination",
+  "name": "反刍与停不下来的想",
+  "summary": "用于反复回想、自责、脑内循环、越想越困住的场景。",
+  "keywords": [
+    "反复想",
+    "停不下来",
+    "想不通",
+    "一直在想",
+    "如果我当时",
+    "回放很多遍",
+    "分析很多遍",
+    "做错了",
+    "overthinking",
+    "rumination",
+    "内耗",
+    "自责",
+    "脑子停不下来",
+    "为什么会这样",
+    "越想越乱",
+    "钻牛角尖"
+  ],
+  "when_to_use": [
+    "用户反复围绕同一问题、错误、关系或决定打转",
+    "用户把思考当作控制感来源，但越想越累"
+  ],
+  "when_not_to_use": [
+    "用户主要是急性惊恐或明显的睡眠生理问题",
+    "用户需要立即的危机支持"
+  ],
+  "goals": [
+    "帮助用户区分‘在解决问题’和‘被问题困住’",
+    "把抽象自责压缩成一个更具体、更可操作的问题"
+  ],
+  "response_requirements": [
+    "最终回复至少要点出用户可能被循环困住了，而不只是努力不够",
+    "优先收拢到一句最常重复的话或一个今晚能回答的小问题"
+  ],
+  "must_do": [
+    "先点出用户不是不努力，而是可能被循环困住了",
+    "不要把反刍说成简单的‘想太多’"
+  ],
+  "nice_to_do": [
+    "可以帮助用户命名脑内最常重复的那一句",
+    "可以把问题缩成今晚能回答的小问题"
+  ],
+  "assessment_questions": [
+    "你现在更像是在接近答案，还是只是被这个问题困住了？",
+    "你最常在脑子里重复的那一句是什么？"
+  ],
+  "psychoeducation_points": [
+    "反复想并不一定更接近答案，很多时候它只是让大脑维持一种‘我还在努力’的感觉。",
+    "先把重复循环命名出来，通常比继续硬想更能恢复一点掌控感。"
+  ],
+  "micro_interventions": [
+    "先点出‘你现在可能不是没有努力，而是被循环困住了’。",
+    "引导用户把问题缩成一个今晚能回答的小问题。",
+    "如果适合，建议暂时把解决时点往后放，而不是逼自己立刻想通。"
+  ],
+  "followup_questions": [
+    "如果今晚先不把它想通，最让你不安的后果是什么？"
+  ],
+  "do_not": [
+    "不要把反刍简单说成‘想太多就别想了’",
+    "不要急着给一堆建议",
+    "不要用居高临下的说教口吻"
+  ],
+  "style_freedom_note": "更像在陪用户把循环看清，而不是按步骤做认知训练。",
+  "source_refs": [
+    {
+      "title": "Depression in adults: treatment and management",
+      "organization": "NICE",
+      "url": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendation"
+    },
+    {
+      "title": "Brief structured psychological interventions",
+      "organization": "WHO mhGAP",
+      "url": "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/mental-health-gap-action-programme/evidence-centre/anxiety/brief-structured-psychological-interventions"
+    }
+  ]
+}

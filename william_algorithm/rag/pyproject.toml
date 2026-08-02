@@ -1,0 +1,29 @@
+[project]
+name = "william-rag"
+version = "0.1.0"
+description = "William RAG service and retrieval pipeline"
+readme = "README"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi==0.115.6",
+    "faiss-cpu==1.13.2",
+    "langchain==0.1.20",
+    "langchain-community==0.0.38",
+    "langchain-core==0.1.53",
+    "langchain-openai==0.1.7",
+    "langchain-text-splitters==0.0.2",
+    "numpy==1.26.4",
+    "openai==1.109.1",
+    "python-dotenv==1.2.1",
+    "rank-bm25==0.2.2",
+    "unstructured[all-docs]==0.18.15",
+    "uvicorn==0.32.1",
+]
+
+[project.optional-dependencies]
+rerank = [
+    "cohere>=5.13.11",
+]
+
+[tool.uv]
+package = false

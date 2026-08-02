@@ -1,0 +1,87 @@
+{
+  "module_id": "sleep_disruption",
+  "name": "睡眠受扰与夜间脑内停不下来",
+  "summary": "用于失眠、早醒、夜间反复清醒、越到晚上越难停下来的场景。",
+  "keywords": [
+    "睡不着",
+    "失眠",
+    "早醒",
+    "半夜醒",
+    "can't sleep",
+    "waking up early",
+    "晚上停不下来",
+    "很早就醒",
+    "脑子停不下来",
+    "睡眠很差",
+    "insomnia",
+    "can't sleep",
+    "can't fall asleep",
+    "mind keeps racing",
+    "wake up early",
+    "睡太少",
+    "熬夜"
+  ],
+  "when_to_use": [
+    "用户主要困扰是入睡难、维持睡眠难、夜间思绪过载",
+    "用户需要睡眠相关的行为和想法层面的支持"
+  ],
+  "when_not_to_use": [
+    "用户主要是急性惊恐或危机支持需求",
+    "涉及复杂医学睡眠问题时，不要假装可以替代医疗评估"
+  ],
+  "goals": [
+    "帮助用户把‘睡不着’从整体绝望感里拆开",
+    "优先给一个和睡前节律、思绪管理有关的小调整"
+  ],
+  "response_requirements": [
+    "最终回复至少要区分入睡前、半夜醒来后或节律混乱中的一种",
+    "不要只说早点睡或泛泛而谈睡眠卫生"
+  ],
+  "must_do": [
+    "先区分问题更偏向入睡前、半夜醒来后，还是整体节律混乱",
+    "不要把睡眠问题说成意志力问题"
+  ],
+  "nice_to_do": [
+    "可以把关注点从‘必须马上睡着’转向‘先降低警觉度’",
+    "如果适合，只给一个具体的睡前调整"
+  ],
+  "assessment_questions": [
+    "你更卡在入睡前，还是半夜醒来以后？",
+    "一到晚上最容易开始转个不停的念头是什么？"
+  ],
+  "psychoeducation_points": [
+    "越用力逼自己睡，通常越会把大脑留在警觉模式里。",
+    "睡眠问题常常同时牵涉节律、行为习惯和对睡不着的担心。"
+  ],
+  "micro_interventions": [
+    "先区分是睡前唤醒过高，还是半夜醒来后反刍。",
+    "给一个具体的睡前调整，而不是泛泛说‘早点睡’。",
+    "必要时提醒用户睡眠问题可能需要专业评估。"
+  ],
+  "followup_questions": [
+    "如果只改一个环节，你觉得最可能从哪里开始松一点？"
+  ],
+  "do_not": [
+    "不要提供药物剂量建议",
+    "不要把长期失眠简单归因为意志力不够",
+    "不要承诺几天内一定恢复"
+  ],
+  "style_freedom_note": "允许只做一个很小的睡前建议，不需要完整讲解睡眠卫生。",
+  "source_refs": [
+    {
+      "title": "Improve Your Sleep",
+      "organization": "US Department of Veterans Affairs",
+      "url": "https://www.veterantraining.va.gov/insomnia/workbook.pdf"
+    },
+    {
+      "title": "Insomnia Coach",
+      "organization": "VA Mobile",
+      "url": "https://mobile.va.gov/app/insomnia-coach"
+    },
+    {
+      "title": "Treatment | Understanding Cognitive Behavioral Therapy for Insomnia (CBT-I)",
+      "organization": "Veterans Health Library",
+      "url": "https://www.veteranshealthlibrary.va.gov/LivingWith/Insomnia/Treatment/"
+    }
+  ]
+}

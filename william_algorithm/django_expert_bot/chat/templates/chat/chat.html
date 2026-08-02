@@ -1,0 +1,205 @@
+{% extends 'chat/base.html' %}
+
+{% block content %}
+<div class="h-[calc(100vh-8rem)] flex flex-col bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+    <!-- Header -->
+    <div class="bg-gray-50 border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <div id="expert-avatar" class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-xl">
+                {% if selected_expert %}{{ selected_expert.avatar }}{% else %}🤖{% endif %}
+            </div>
+            <div>
+                <h2 id="expert-name" class="text-lg font-medium text-gray-900">
+                    {% if selected_expert %}
+                        {{ selected_expert.name }} · {{ selected_expert.title }}
+                    {% else %}
+                        Auto-Match Assistant
+                    {% endif %}
+                </h2>
+                <p id="expert-status" class="text-sm text-gray-500">
+                    {% if selected_expert %}
+                        Direct connection established
+                    {% else %}
+                        I will find the right expert for you
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <a href="{% url 'chat:index' %}" class="text-gray-400 hover:text-gray-500 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- Messages Area -->
+    <div id="messages-container" class="flex-1 overflow-y-auto p-6 space-y-6">
+        <!-- Messages will be injected here -->
+        <div class="flex justify-start">
+            <div class="bg-gray-100 rounded-lg rounded-tl-none px-4 py-3 max-w-[80%] text-gray-800 text-sm shadow-sm">
+                {% if selected_expert %}
+                    Hello! I'm {{ selected_expert.name }}. How can I help you with {{ selected_expert.description }} today?
+                {% else %}
+                    Hi there! Tell me what's on your mind, and I'll connect you with the right expert.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="border-t border-gray-200 p-4 bg-gray-50">
+        <form id="chat-form" class="flex space-x-4">
+            <input type="text" id="message-input" 
+                   class="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 px-4 py-3" 
+                   placeholder="Type your question..." autocomplete="off">
+            <button type="submit" 
+                    id="send-btn"
+                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                <span>Send</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const sessionId = "{{ session_id|default:'' }}";
+    const initialExpertId = "{{ selected_expert.id|default:'' }}";
+    
+    // State
+    let currentSessionId = sessionId;
+    let currentExpertId = initialExpertId;
+
+    const messagesContainer = document.getElementById('messages-container');
+    const messageInput = document.getElementById('message-input');
+    const chatForm = document.getElementById('chat-form');
+    const expertNameEl = document.getElementById('expert-name');
+    const expertAvatarEl = document.getElementById('expert-avatar');
+    const expertStatusEl = document.getElementById('expert-status');
+    const sendBtn = document.getElementById('send-btn');
+
+    function scrollToBottom() {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function addMessage(role, text, expertMeta = null) {
+        const div = document.createElement('div');
+        div.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+        
+        let contentHtml = text.replace(/\n/g, '<br>');
+        
+        // Assistant Message Style
+        if (role === 'assistant') {
+            const avatar = expertMeta ? expertMeta.avatar : '🤖';
+            const name = expertMeta ? expertMeta.name : 'Bot';
+            
+            div.innerHTML = `
+                <div class="flex items-start max-w-[80%]">
+                    <div class="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center mr-2 text-sm select-none">
+                        ${avatar}
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 ml-1 mb-1">${name}</div>
+                        <div class="bg-white border border-gray-200 rounded-lg rounded-tl-none px-4 py-3 text-gray-800 text-sm shadow-sm">
+                            ${contentHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            // User Message Style
+            div.innerHTML = `
+                <div class="bg-indigo-600 text-white rounded-lg rounded-tr-none px-4 py-3 max-w-[80%] text-sm shadow-md">
+                    ${contentHtml}
+                </div>
+            `;
+        }
+        
+        messagesContainer.appendChild(div);
+        scrollToBottom();
+    }
+
+    function showLoading() {
+        const div = document.createElement('div');
+        div.id = 'loading-indicator';
+        div.className = 'flex justify-start';
+        div.innerHTML = `
+            <div class="flex items-center space-x-1 bg-gray-100 rounded-lg rounded-tl-none px-4 py-3 shadow-sm ml-10">
+                <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+            </div>
+        `;
+        messagesContainer.appendChild(div);
+        scrollToBottom();
+    }
+
+    function removeLoading() {
+        const el = document.getElementById('loading-indicator');
+        if (el) el.remove();
+    }
+
+    chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const text = messageInput.value.trim();
+        if (!text) return;
+
+        // UI Updates
+        addMessage('user', text);
+        messageInput.value = '';
+        messageInput.disabled = true;
+        sendBtn.disabled = true;
+        showLoading();
+
+        try {
+            const response = await fetch('{% url "chat:api_send" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRFToken': '{{ csrf_token }}' // We used @csrf_exempt for demo simplicity, but in prod add csrf
+                },
+                body: JSON.stringify({
+                    session_id: currentSessionId,
+                    message: text,
+                    expert_id: currentExpertId
+                })
+            });
+
+            const data = await response.json();
+            
+            removeLoading();
+
+            if (data.error) {
+                addMessage('assistant', `Error: ${data.error}`);
+            } else {
+                // Update Session State
+                currentSessionId = data.session_id;
+                
+                // If auto-routing changed the expert, update UI header
+                if (data.expert_id && data.expert_id !== currentExpertId && !initialExpertId) {
+                    expertNameEl.innerText = `${data.expert_name} (Auto-Switched)`;
+                    expertAvatarEl.innerText = data.expert_avatar;
+                    expertStatusEl.innerText = "Expert matched based on your query";
+                }
+                
+                addMessage('assistant', data.reply, {
+                    name: data.expert_name,
+                    avatar: data.expert_avatar
+                });
+            }
+        } catch (err) {
+            removeLoading();
+            addMessage('assistant', "Network Error. Please try again.");
+            console.error(err);
+        } finally {
+            messageInput.disabled = false;
+            sendBtn.disabled = false;
+            messageInput.focus();
+        }
+    });
+</script>
+{% endblock %}

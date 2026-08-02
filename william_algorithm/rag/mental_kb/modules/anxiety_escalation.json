@@ -1,0 +1,84 @@
+{
+  "module_id": "anxiety_escalation",
+  "name": "焦虑升级与急性紧绷",
+  "summary": "用于明显焦虑、担心失控、身体警觉升高、紧张不断上行的场景。",
+  "keywords": [
+    "焦虑",
+    "紧张",
+    "panic",
+    "panic attack",
+    "心慌",
+    "喘不过气",
+    "停不下来地担心",
+    "控制不住担心",
+    "restless",
+    "worried",
+    "terrified",
+    "胸口发紧",
+    "一想到就慌",
+    "something bad is about to happen"
+  ],
+  "when_to_use": [
+    "用户主要在描述持续担心、过度警觉、身体紧绷、害怕失控",
+    "用户在寻找当下可执行的降强度方法"
+  ],
+  "when_not_to_use": [
+    "已经出现明确自杀计划或高危自伤意图",
+    "明显精神病性体验、躁狂或完全失去现实检验能力"
+  ],
+  "goals": [
+    "先降低当下焦虑强度，再帮助用户命名最核心的担心",
+    "把笼统的灾难感缩小成一个更可回答的问题"
+  ],
+  "response_requirements": [
+    "最终回复至少要明确碰到以下之一：身体已经在报警、最具体的担心、或眼前这十分钟怎么撑过去",
+    "不要只说放松一点、别担心"
+  ],
+  "must_do": [
+    "先承接当下紧绷感，不要一上来分析所有原因",
+    "优先把注意力收窄到一个最具体的担心或身体感受"
+  ],
+  "nice_to_do": [
+    "可以轻轻区分身体已经报警和头脑在继续追最坏结果",
+    "如果适合，只给一个最小的下一步"
+  ],
+  "assessment_questions": [
+    "现在最让你身体绷起来的，是哪一个具体画面或后果？",
+    "你现在更像是在担心会发生什么，还是身体已经先进入警报状态了？"
+  ],
+  "psychoeducation_points": [
+    "持续担心会让身体把威胁判断得越来越近，但担心得更久并不等于更有准备。",
+    "先把身体从警报状态稍微拉下来，通常比继续追着最坏结果跑更有用。"
+  ],
+  "micro_interventions": [
+    "先陪用户把注意力带回身体和呼吸，而不是立刻分析所有原因。",
+    "把问题缩成“我现在最怕的具体后果是什么”。",
+    "如果适合，只给一个最小的下一步，不给一串待办。"
+  ],
+  "followup_questions": [
+    "如果我们先不解决全部，只把眼前这 10 分钟撑过去，什么最有帮助？"
+  ],
+  "do_not": [
+    "不要一下子讲一大段理论",
+    "不要把普通焦虑直接病理化",
+    "不要承诺你能替代急救或专业治疗"
+  ],
+  "style_freedom_note": "不需要每次都提问。可以先只做一句承接，再推进一个小聚焦。",
+  "source_refs": [
+    {
+      "title": "Generalised anxiety disorder and panic disorder in adults: management",
+      "organization": "NICE",
+      "url": "https://www.nice.org.uk/guidance/cg113/resources/generalised-anxiety-disorder-and-panic-disorder-in-adults-management-35109387756997"
+    },
+    {
+      "title": "Stress management techniques",
+      "organization": "WHO mhGAP",
+      "url": "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/mental-health-gap-action-programme/evidence-centre/anxiety/stress-management-techniques"
+    },
+    {
+      "title": "Brief structured psychological interventions",
+      "organization": "WHO mhGAP",
+      "url": "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/mental-health-gap-action-programme/evidence-centre/anxiety/brief-structured-psychological-interventions"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "title": "William Real Conversation Review Sample Pack",
+    "language": "zh-CN"
+  },
+  "cases": [
+    {
+      "id": "vague_distress_checkin",
+      "title": "模糊烦躁，不该过度读取历史",
+      "voiceMode": "classic",
+      "profile": {
+        "bio": "长期在工作和家庭压力之间摇摆，希望被直接但不冷硬地支持。",
+        "challenges": ["睡眠波动", "困难对话", "职业转岗"],
+        "trigs": ["和妈妈沟通", "周会发言"],
+        "sleep": 4,
+        "work": 8
+      },
+      "reviewFocus": [
+        "不要上来讲太多",
+        "不要滥用历史记忆",
+        "要有基本陪伴感"
+      ],
+      "tags": ["general_support", "restraint"],
+      "turns": [
+        {
+          "content": "今天有点烦，但我也说不上来具体是什么。",
+          "expectedQualities": ["短", "不机械", "不过度分析"],
+          "reviewerNotes": "重点看 William 会不会把普通烦躁讲成完整心理模式。"
+        },
+        {
+          "content": "你先别分析太多，就简单陪我说两句。",
+          "expectedQualities": ["尊重要求", "语气稳", "不继续推进方案"]
+        }
+      ]
+    },
+    {
+      "id": "direct_problem_solving",
+      "title": "直接求下一步，不该空泛安慰",
+      "voiceMode": "classic",
+      "profile": {
+        "bio": "不喜欢绕弯子，希望先说重点。",
+        "challenges": ["职业转岗"],
+        "trigs": ["和老板沟通"],
+        "sleep": 5,
+        "work": 8
+      },
+      "reviewFocus": [
+        "要给下一步",
+        "不要空泛鼓励",
+        "不要太长"
+      ],
+      "tags": ["active_problem_solving"],
+      "turns": [
+        {
+          "content": "别安慰我，直接说我下一步先做什么。我准备转岗，但一直没和老板开口。",
+          "expectedQualities": ["直接", "具体", "可执行"],
+          "reviewerNotes": "看它会不会还是先铺很多共情。"
+        }
+      ]
+    },
+    {
+      "id": "difficult_conversation_script",
+      "title": "困难对话，是否给出可用话术",
+      "voiceMode": "classic",
+      "profile": {
+        "bio": "和家里沟通时容易愧疚。",
+        "challenges": ["边界建立", "家庭沟通"],
+        "trigs": ["和妈妈沟通"],
+        "sleep": 4,
+        "work": 6
+      },
+      "reviewFocus": [
+        "是否真的帮用户开口",
+        "不要讲成理论",
+        "话术不能太假"
+      ],
+      "tags": ["relationship_conversation"],
+      "turns": [
+        {
+          "content": "我每次想和妈妈谈边界就很愧疚，不知道怎么开口。",
+          "expectedQualities": ["可直接发送的话术", "少说教", "有情境感"]
+        }
+      ]
+    },
+    {
+      "id": "sleep_rumination",
+      "title": "睡眠受扰，不该误转成泛焦虑课",
+      "voiceMode": "classic",
+      "profile": {
+        "bio": "最近工作节奏很乱，经常凌晨醒。",
+        "challenges": ["睡眠波动"],
+        "sleep": 3,
+        "work": 8
+      },
+      "reviewFocus": [
+        "要贴近睡眠场景",
+        "不要上来给很多理论",
+        "动作要小"
+      ],
+      "tags": ["sleep_recovery"],
+      "turns": [
+        {
+          "content": "我最近总是睡不着，凌晨四点醒来后就再也睡不回去。",
+          "expectedQualities": ["贴近当下", "动作小", "不病理化"]
+        }
+      ]
+    },
+    {
+      "id": "memory_audit_followup",
+      "title": "记忆追问，是否真的记对",
+      "voiceMode": "classic",
+      "profile": {
+        "bio": "最近一直在想转岗。",
+        "challenges": ["职业转岗"],
+        "trigs": ["和老板沟通"],
+        "sleep": 5,
+        "work": 8
+      },
+      "reviewFocus": [
+        "先回答记住了什么",
+        "不能编造没说过的内容",
+        "不要回避"
+      ],
+      "tags": ["memory_audit"],
+      "turns": [
+        {
+          "content": "我最近在准备转岗，但一直没和老板开口。",
+          "expectedQualities": ["正常接住", "不需要一次说完全部建议"]
+        },
+        {
+          "content": "你还记得我刚刚卡在哪吗？",
+          "expectedQualities": ["直接回忆", "不加新内容", "简洁"]
+        }
+      ]
+    },
+    {
+      "id": "factual_knowledge_request",
+      "title": "知识请求带情绪词，不该误进支持模块",
+      "voiceMode": "classic",
+      "reviewFocus": [
+        "这是知识请求，不是情绪求助",
+        "不要突然安慰用户"
+      ],
+      "tags": ["knowledge_request", "routing"],
+      "turns": [
+        {
+          "content": "给我一个焦虑研究的论文摘要。",
+          "expectedQualities": ["知识回答", "不误判为求助"]
+        }
+      ]
+    },
+    {
+      "id": "temporary_chat_light",
+      "title": "临时聊天，应该轻而不过度沉淀",
+      "voiceMode": "classic",
+      "temporaryChat": true,
+      "profile": {
+        "bio": "平时不太喜欢被记太多。",
+        "memory_enabled": 1
+      },
+      "reviewFocus": [
+        "语气自然",
+        "不要显得在长期建档"
+      ],
+      "tags": ["temporary_chat"],
+      "turns": [
+        {
+          "content": "我就是随便吐槽一下今天的会。",
+          "expectedQualities": ["轻", "自然", "不抓过多画像"]
+        }
+      ]
+    },
+    {
+      "id": "relationship_pressure_no_loop",
+      "title": "关系紧绷但未求解决，不该强推困难对话流程",
+      "voiceMode": "classic",
+      "profile": {
+        "bio": "最近和老板关系紧绷。",
+        "trigs": ["见老板"],
+        "work": 8
+      },
+      "reviewFocus": [
+        "不要在没被要求时强推脚本",
+        "先判断用户是在倾诉还是在求解"
+      ],
+      "tags": ["relationship", "restraint"],
+      "turns": [
+        {
+          "content": "我和老板最近关系很紧绷，每次见到他都很压抑。",
+          "expectedQualities": ["先接住", "不要直接上步骤", "不过度延展"]
+        }
+      ]
+    }
+  ]
+}

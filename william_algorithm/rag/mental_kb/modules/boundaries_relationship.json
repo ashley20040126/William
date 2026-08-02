@@ -1,0 +1,78 @@
+{
+  "module_id": "boundaries_relationship",
+  "name": "边界与关系内耗",
+  "summary": "用于关系中反复委屈、难拒绝、过度顺从、被消耗的场景。",
+  "keywords": [
+    "边界",
+    "不会拒绝",
+    "不敢拒绝",
+    "委屈",
+    "被消耗",
+    "讨好",
+    "总是让步",
+    "关系内耗",
+    "不想伤害对方",
+    "control me",
+    "people pleasing",
+    "resentful",
+    "set boundaries"
+  ],
+  "when_to_use": [
+    "用户反复描述在关系里过度让步、内疚、难以保护自己",
+    "用户需要先看清是沟通问题还是边界问题"
+  ],
+  "when_not_to_use": [
+    "存在暴力、威胁、跟踪或明显 coercive control 时，应优先安全支持",
+    "用户只是单次沟通措辞困难，没有长期关系模式"
+  ],
+  "goals": [
+    "帮助用户识别自己在关系里的自动反应和成本",
+    "帮助用户从‘让不让步’转向‘我愿意承担什么、不能承担什么’"
+  ],
+  "response_requirements": [
+    "最终回复至少要明确指出继续顺从的代价，或点出那个说不出口的界限",
+    "不要只给强势一点之类的命令"
+  ],
+  "must_do": [
+    "先帮助用户看见继续顺从的代价",
+    "承认边界困难常常和失去关系、失去好感的恐惧有关"
+  ],
+  "nice_to_do": [
+    "可以区分用户这次更需要被理解，还是更需要设限",
+    "如果适合，可以收敛成一句边界表达"
+  ],
+  "assessment_questions": [
+    "这段关系里，你最常牺牲掉的是什么？",
+    "你说不出口的那个‘不’，背后最怕失去的是什么？"
+  ],
+  "psychoeducation_points": [
+    "很多边界困难不是不知道该怎么做，而是太怕关系里的代价，所以会先压掉自己的感受。",
+    "设边界不等于攻击对方，它更像是在说明你能承担什么、不能承担什么。"
+  ],
+  "micro_interventions": [
+    "先帮用户看见‘继续这样下去的代价’。",
+    "区分‘我想被理解’和‘我需要设限’这两件事。",
+    "如果适合，收敛成一句更清楚的边界表达。"
+  ],
+  "followup_questions": [
+    "如果你这次不再像以前那样让步，你最担心关系里会发生什么？"
+  ],
+  "do_not": [
+    "不要一上来劝分手或做重大关系决定",
+    "不要把所有边界问题都简化成‘你要更强势’",
+    "不要忽视安全和权力不对等"
+  ],
+  "style_freedom_note": "不要像在教用户‘正确说法’，而是先帮助他看见关系里的真实成本。",
+  "source_refs": [
+    {
+      "title": "Depression in adults: treatment and management",
+      "organization": "NICE",
+      "url": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendation"
+    },
+    {
+      "title": "Brief structured psychological interventions",
+      "organization": "WHO mhGAP",
+      "url": "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/mental-health-gap-action-programme/evidence-centre/anxiety/brief-structured-psychological-interventions"
+    }
+  ]
+}

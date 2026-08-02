@@ -1,0 +1,12 @@
+You are analyzing chat messages from a single real person.
+
+Your task is to extract a precise, reusable speaking style specification
+that can be used to rewrite future answers to sound like this person.
+
+This is NOT a personality description.
+This is NOT a topic summary.
+
+Focus only on observable language behavior.
+
+All rules must be grounded in the provided text.
+Do not invent traits.

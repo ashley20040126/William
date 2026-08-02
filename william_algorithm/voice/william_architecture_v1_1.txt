@@ -1,0 +1,383 @@
+
+William 技术架构 v1.1
+
+================================
+0. 设计目标
+================================
+
+William 是一个长期心理状态理解系统，通过被动采集行为信号来识别行为模式，并在模式发生偏离时提供温和支持。
+
+核心流程：
+
+捕捉行为信号
+→ 识别行为模式
+→ 发现模式偏离
+→ 生成可解释的支持
+
+设计原则：
+1. 可解释性
+2. 低侵入
+3. 长期趋势分析
+
+William 不依赖：
+- 内容理解
+- 情绪标签
+- 心理诊断
+
+William 依赖：
+- behavioral signals
+- temporal patterns
+- baseline deviation
+
+
+================================
+1. 系统整体架构
+================================
+
+系统由五层主干 + 三个辅助分支组成。
+
+Raw Signals
+     │
+     ▼
+Layer0 Preprocessing
+     │
+     ▼
+Layer1 Perception
+     │
+     ▼
+Layer2 Events
+     │
+     ▼
+Layer3 Patterns
+     │
+     ▼
+Layer4 Interpretation
+     │
+     ▼
+Layer5 Support
+
+辅助分支：
+- Emotion Branch
+- ASR Branch
+- Vision Branch
+
+辅助分支不会进入主干 Pattern 计算。
+
+
+================================
+2. Runtime 与 Storage
+================================
+
+系统分为两个层面：
+
+Runtime Pipeline
+Storage Layer
+
+Runtime 中数据通过 Context Object 在内存中逐层 enrich：
+
+context = {
+    signals
+    features
+    events
+    patterns
+    interpretation
+}
+
+避免运行时频繁 I/O：
+
+features.json
+→ events.json
+→ patterns.json
+→ interpretation.json
+
+Storage 只负责持久化结果。
+
+推荐数据库：
+- SQLite
+- Postgres
+- Redis
+
+存储结构：
+- daily_metrics
+- events
+- patterns
+- interpretations
+
+
+================================
+3. Layer 0 — Preprocessing
+================================
+
+目标：统一输入数据格式
+
+输入：
+- 手机录音
+- 可穿戴设备音频
+- 视频音轨
+- 其他采集设备
+
+处理流程：
+
+audio_file
+    ↓
+decode
+    ↓
+resample (16kHz)
+    ↓
+mono conversion
+    ↓
+normalize
+
+统一输出格式：
+- 16kHz
+- mono
+- float32
+
+输出：
+audio_stream
+
+
+================================
+4. Layer 1 — Perception
+================================
+
+目标：提取客观信号特征
+
+输入：
+audio_stream
+
+模块：
+
+VAD
+检测：speech / non-speech
+算法：WebRTC VAD / Silero VAD
+
+声学特征：
+- RMS energy
+- pitch (F0)
+- pitch_std
+- spectral centroid
+- MFCC
+- eGeMAPS
+
+信号质量：
+- snr_proxy
+- clipping_ratio
+- noise_floor
+
+输出：features
+
+示例：
+
+{
+  "timestamp": 1736947200,
+  "speech_ratio": 0.32,
+  "rms_mean": 0.014,
+  "pitch_mean": 165.2,
+  "snr": 8.4
+}
+
+
+================================
+5. Layer 2 — Events
+================================
+
+目标：将信号转换为行为片段
+
+输入：
+features
+
+模块：
+
+状态分类：
+- SPEECH
+- SILENCE
+- NOISE
+- LOW_QUALITY
+
+片段合并规则：
+pause < 1s → merge
+
+事件类型：
+- SOCIAL_INTERACTION
+- PROLONGED_SILENCE
+- HIGH_AROUSAL_BURST
+- LOW_ACTIVITY_BLOCK
+
+输出：events
+
+示例：
+
+{
+ "type":"SOCIAL_INTERACTION",
+ "start":1736947200,
+ "end":1736947350,
+ "confidence":0.82
+}
+
+
+================================
+6. Layer 3 — Patterns
+================================
+
+目标：识别行为模式变化
+
+输入：
+events
+baseline
+
+Baseline 系统：
+- 7 day rolling baseline
+- 30 day rolling baseline
+- weekday vs weekend
+
+指标：
+- speech_time
+- conversation_count
+- energy_variance
+- activity_hours
+
+偏离检测：
+current - baseline
+
+输出类型：
+- higher_than_usual
+- lower_than_usual
+- stable
+
+输出：patterns
+
+示例：
+
+{
+ "social_activity":"lower_than_usual",
+ "energy_variance":"higher_than_baseline"
+}
+
+
+================================
+7. Layer 4 — Interpretation
+================================
+
+目标：生成可理解的心理叙事
+
+输入：
+patterns
+recent events
+user profile
+
+推理引擎：
+LLM (GPT / Llama / Claude)
+
+Evidence Boundary：
+如果没有语义证据：
+禁止输出具体 stressor
+
+允许：
+- 状态描述
+- 行为变化
+- 可能压力
+
+输出：interpretation
+
+示例：
+
+{
+ "summary":"今天的社交互动低于平时，同时声音波动增加。",
+ "confidence":0.64
+}
+
+
+================================
+8. Layer 5 — Support
+================================
+
+目标：生成交互策略
+
+输入：
+interpretation
+conversation_history
+user_preferences
+
+输出：support_plan
+
+示例：
+
+{
+ "interaction":"gentle_check_in",
+ "tone":"supportive",
+ "suggestion":"short break"
+}
+
+
+================================
+9. Auxiliary Branches
+================================
+
+Emotion Branch
+模型：emotion2vec / SpeechBrain SER / wav2vec2 emotion
+作用：辅助信号
+
+ASR Branch
+模型：Whisper / Faster-Whisper
+条件：用户授权 + 短语音片段
+输出：transcript
+供 Layer4 参考
+
+Vision Branch
+处理：
+- facial expression
+- activity detection
+工具：
+- OpenFace
+- MediaPipe
+
+
+================================
+10. Baseline Storage
+================================
+
+数据库表：
+- users
+- daily_metrics
+- events
+- patterns
+- interpretations
+
+baseline计算：
+- rolling average
+- rolling std
+
+
+================================
+11. 关键架构结论
+================================
+
+William =
+
+5-layer sensing architecture
++ baseline learning
++ optional semantic branches
+
+核心哲学：
+
+pattern first
+content optional
+long-term deviation detection
+
+
+================================
+12. v1 Roadmap
+================================
+
+第一版只需要：
+
+audio
+VAD
+energy
+speech_ratio
+events
+baseline
+LLM summary
+
+即可跑通 MVP。

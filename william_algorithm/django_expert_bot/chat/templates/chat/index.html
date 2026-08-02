@@ -1,0 +1,48 @@
+{% extends 'chat/base.html' %}
+
+{% block content %}
+<div class="px-4 py-6 sm:px-0">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+            Ask the <span class="text-primary">Experts</span>
+        </h1>
+        <p class="mt-5 max-w-xl mx-auto text-xl text-gray-500">
+            Select a specialized AI persona or let our smart router match you with the right expert.
+        </p>
+        
+        <div class="mt-8 flex justify-center">
+            <a href="{% url 'chat:chat_new' %}" 
+               class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-indigo-700 transition-colors duration-200 transform hover:scale-105">
+                ✨ Start Auto-Match Chat
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {% for expert in experts %}
+        <a href="{% url 'chat:chat_new' %}?expert_id={{ expert.id }}" 
+           class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary rounded-lg shadow hover:shadow-lg transition-all duration-200 border border-gray-100 cursor-pointer">
+            <div>
+                <span class="rounded-lg inline-flex p-3 bg-indigo-50 text-indigo-700 ring-4 ring-white text-3xl group-hover:bg-indigo-100 transition-colors">
+                    {{ expert.avatar }}
+                </span>
+            </div>
+            <div class="mt-4">
+                <h3 class="text-lg font-medium">
+                    {{ expert.name }}
+                    <span class="ml-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">{{ expert.title }}</span>
+                </h3>
+                <p class="mt-2 text-sm text-gray-500">
+                    {{ expert.description }}
+                </p>
+            </div>
+            <span class="absolute top-6 right-6 text-gray-300 group-hover:text-gray-400" aria-hidden="true">
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                </svg>
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

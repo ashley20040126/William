@@ -1,0 +1,33 @@
+.DS_Store
+
+# Env
+.env
+.env.docker
+.venv/
+Development/backend/.env
+Development/frontend/.env
+william_algorithm/.env
+Development/backend/uploads/
+william_algorithm/*/.env
+
+# JS / TS build artifacts
+node_modules/
+dist/
+Development/frontend/dist/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.sqlite3
+*.tsbuildinfo
+
+# Large local media / bench artifacts
+william_algorithm/voice/test_data/
+william_algorithm/voice/lab_bench/raw/
+/Development/frontend/release
+william_algorithm/rag/data/
+william_algorithm/rag/rag_storage/
+william_algorithm/django_expert_bot/raw_data/
+
+# Local AI assistant state
+.claude/

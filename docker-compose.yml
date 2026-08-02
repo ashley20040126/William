@@ -1,0 +1,34 @@
+services:
+  rag:
+    build:
+      context: .
+      dockerfile: docker/rag.Dockerfile
+    container_name: william-rag
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    environment:
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "127.0.0.1:8010:8010"
+    volumes:
+      - william_rag_cache:/root/.cache
+
+  voice:
+    build:
+      context: .
+      dockerfile: docker/voice.Dockerfile
+    container_name: william-voice
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    environment:
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "127.0.0.1:8020:8020"
+    volumes:
+      - william_voice_cache:/root/.cache
+
+volumes:
+  william_rag_cache:
+  william_voice_cache:

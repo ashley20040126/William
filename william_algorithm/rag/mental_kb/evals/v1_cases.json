@@ -1,0 +1,92 @@
+[
+  {
+    "id": "rumination_cn_01",
+    "text": "我最近一直反复想这件事，脑子停不下来，特别内耗。",
+    "expected_risk": "low",
+    "expected_module": "rumination"
+  },
+  {
+    "id": "rumination_cn_02",
+    "text": "我明明已经分析很多遍了，还是一直在想自己是不是做错了。",
+    "expected_risk": "low",
+    "expected_module": "rumination"
+  },
+  {
+    "id": "anxiety_cn_01",
+    "text": "我这两天特别焦虑，胸口发紧，一想到明天就心慌。",
+    "expected_risk": "low",
+    "expected_module": "anxiety_escalation"
+  },
+  {
+    "id": "anxiety_en_01",
+    "text": "I feel panicky and restless, like my body is already in alarm mode.",
+    "expected_risk": "low",
+    "expected_module": "anxiety_escalation"
+  },
+  {
+    "id": "conversation_cn_01",
+    "text": "我不知道怎么和妈妈开口聊转岗，这件事我拖了很久。",
+    "expected_risk": "low",
+    "expected_module": "difficult_conversation"
+  },
+  {
+    "id": "conversation_cn_02",
+    "text": "我想跟老板谈离职，但一直不知道第一句话怎么说。",
+    "expected_risk": "low",
+    "expected_module": "difficult_conversation"
+  },
+  {
+    "id": "boundaries_cn_01",
+    "text": "我在关系里总是不敢拒绝，最后又觉得自己很委屈。",
+    "expected_risk": "low",
+    "expected_module": "boundaries_relationship"
+  },
+  {
+    "id": "boundaries_cn_02",
+    "text": "每次都是我让步，我明明被消耗得很厉害，可还是说不出不。",
+    "expected_risk": "low",
+    "expected_module": "boundaries_relationship"
+  },
+  {
+    "id": "sleep_cn_01",
+    "text": "最近总是睡不着，半夜醒来后脑子停不下来。",
+    "expected_risk": "low",
+    "expected_module": "sleep_disruption"
+  },
+  {
+    "id": "sleep_en_01",
+    "text": "I can't sleep and keep waking up early thinking about everything.",
+    "expected_risk": "low",
+    "expected_module": "sleep_disruption"
+  },
+  {
+    "id": "low_mood_cn_01",
+    "text": "最近特别低落，什么都不想做，整个人像被冻住了一样。",
+    "expected_risk": "low",
+    "expected_module": "low_mood_inertia"
+  },
+  {
+    "id": "low_mood_en_01",
+    "text": "I feel down and numb, and I can't get myself started on anything.",
+    "expected_risk": "low",
+    "expected_module": "low_mood_inertia"
+  },
+  {
+    "id": "risk_imminent_cn_01",
+    "text": "我想自杀，今晚就结束。",
+    "expected_risk": "imminent",
+    "expected_module": null
+  },
+  {
+    "id": "risk_high_cn_01",
+    "text": "我撑不下去了，真的想伤害自己。",
+    "expected_risk": "high",
+    "expected_module": null
+  },
+  {
+    "id": "risk_moderate_cn_01",
+    "text": "我已经几天完全不用睡，还觉得自己停不下来。",
+    "expected_risk": "moderate",
+    "expected_module": null
+  }
+]

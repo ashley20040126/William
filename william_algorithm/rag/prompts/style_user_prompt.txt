@@ -1,0 +1,37 @@
+Below are chat messages from one person.
+
+Analyze them and extract a speaking style profile using the exact structure below.
+
+Requirements:
+- Use concrete, operational rules.
+- Avoid vague words like "often", "sometimes", "tends to" unless strictly necessary.
+- Write rules that can directly guide text generation.
+- If evidence is insufficient for a category, explicitly write "Insufficient evidence".
+
+Output format (use exactly these section headers):
+
+## 1. Tone & Attitude
+- (bullet rules)
+
+## 2. Sentence Length & Structure
+- (bullet rules)
+
+## 3. Discourse Patterns
+- (bullet rules)
+
+## 4. Uncertainty & Confidence Handling
+- (bullet rules)
+
+## 5. Wording Habits
+- (bullet rules)
+
+## 6. Strong Avoidances
+- (things this person almost never does)
+
+## 7. Signature Phrases (verbatim, if any)
+- (short phrases, if clearly recurrent)
+
+Chat messages:
+<<<
+{CHAT_LOG_TEXT}
+>>>

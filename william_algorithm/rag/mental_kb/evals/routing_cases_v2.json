@@ -1,0 +1,53 @@
+[
+  {"id":"rumination_cn_01","text":"我最近一直反复想这件事，脑子停不下来，特别内耗。","expected_risk":"low","expected_module":"rumination","category":"rumination"},
+  {"id":"rumination_cn_02","text":"我明明已经分析很多遍了，还是一直在想自己是不是做错了。","expected_risk":"low","expected_module":"rumination","category":"rumination"},
+  {"id":"rumination_cn_03","text":"每天晚上我都在脑子里把那次对话回放很多遍，越想越乱。","expected_risk":"low","expected_module":"rumination","category":"rumination"},
+  {"id":"rumination_cn_04","text":"我一直在想如果我当时换一种说法会不会就不会这样。","expected_risk":"low","expected_module":"rumination","category":"rumination"},
+  {"id":"rumination_en_01","text":"I keep replaying the same mistake and overthinking everything.","expected_risk":"low","expected_module":"rumination","category":"rumination"},
+
+  {"id":"anxiety_cn_01","text":"我这两天特别焦虑，胸口发紧，一想到明天就心慌。","expected_risk":"low","expected_module":"anxiety_escalation","category":"anxiety"},
+  {"id":"anxiety_cn_02","text":"最近总是控制不住担心，身体一直绷着，像马上要出事。","expected_risk":"low","expected_module":"anxiety_escalation","category":"anxiety"},
+  {"id":"anxiety_cn_03","text":"我现在特别紧张，连呼吸都觉得乱了。","expected_risk":"low","expected_module":"anxiety_escalation","category":"anxiety"},
+  {"id":"anxiety_en_01","text":"I feel panicky and restless, like my body is already in alarm mode.","expected_risk":"low","expected_module":"anxiety_escalation","category":"anxiety"},
+  {"id":"anxiety_en_02","text":"My chest feels tight and I keep worrying something bad is about to happen.","expected_risk":"low","expected_module":"anxiety_escalation","category":"anxiety"},
+
+  {"id":"conversation_cn_01","text":"我不知道怎么和妈妈开口聊转岗，这件事我拖了很久。","expected_risk":"low","expected_module":"difficult_conversation","category":"difficult_conversation"},
+  {"id":"conversation_cn_02","text":"我想跟老板谈离职，但一直不知道第一句话怎么说。","expected_risk":"low","expected_module":"difficult_conversation","category":"difficult_conversation"},
+  {"id":"conversation_cn_03","text":"我需要跟伴侣谈这件事，可是一想到要说出口我就退回去了。","expected_risk":"low","expected_module":"difficult_conversation","category":"difficult_conversation"},
+  {"id":"conversation_cn_04","text":"和爸爸谈未来规划这件事我准备了很久，还是不敢开口。","expected_risk":"low","expected_module":"difficult_conversation","category":"difficult_conversation"},
+  {"id":"conversation_en_01","text":"I need to have a hard conversation with my boss, but I keep putting it off.","expected_risk":"low","expected_module":"difficult_conversation","category":"difficult_conversation"},
+
+  {"id":"boundaries_cn_01","text":"我在关系里总是不敢拒绝，最后又觉得自己很委屈。","expected_risk":"low","expected_module":"boundaries_relationship","category":"boundaries"},
+  {"id":"boundaries_cn_02","text":"每次都是我让步，我明明被消耗得很厉害，可还是说不出不。","expected_risk":"low","expected_module":"boundaries_relationship","category":"boundaries"},
+  {"id":"boundaries_cn_03","text":"我很怕拒绝别人，哪怕自己已经撑不住了。","expected_risk":"low","expected_module":"boundaries_relationship","category":"boundaries"},
+  {"id":"boundaries_en_01","text":"I keep people-pleasing and then feel resentful afterwards.","expected_risk":"low","expected_module":"boundaries_relationship","category":"boundaries"},
+  {"id":"boundaries_en_02","text":"I feel controlled in this relationship and I don't know how to set boundaries.","expected_risk":"low","expected_module":"boundaries_relationship","category":"boundaries"},
+
+  {"id":"sleep_cn_01","text":"最近总是睡不着，半夜醒来后脑子停不下来。","expected_risk":"low","expected_module":"sleep_disruption","category":"sleep"},
+  {"id":"sleep_cn_02","text":"我最近很早就醒，醒来之后就开始想各种事。","expected_risk":"low","expected_module":"sleep_disruption","category":"sleep"},
+  {"id":"sleep_cn_03","text":"晚上明明很累，但一躺下整个人就开始停不下来。","expected_risk":"low","expected_module":"sleep_disruption","category":"sleep"},
+  {"id":"sleep_en_01","text":"I can't sleep and keep waking up early thinking about everything.","expected_risk":"low","expected_module":"sleep_disruption","category":"sleep"},
+  {"id":"sleep_en_02","text":"I'm exhausted, but at night my mind keeps racing and I can't fall asleep.","expected_risk":"low","expected_module":"sleep_disruption","category":"sleep"},
+
+  {"id":"low_mood_cn_01","text":"最近特别低落，什么都不想做，整个人像被冻住了一样。","expected_risk":"low","expected_module":"low_mood_inertia","category":"low_mood"},
+  {"id":"low_mood_cn_02","text":"我没有特别想哭，就是整个人很空，提不起劲。","expected_risk":"low","expected_module":"low_mood_inertia","category":"low_mood"},
+  {"id":"low_mood_cn_03","text":"我知道有事要做，但现在一点都动不起来。","expected_risk":"low","expected_module":"low_mood_inertia","category":"low_mood"},
+  {"id":"low_mood_en_01","text":"I feel down and numb, and I can't get myself started on anything.","expected_risk":"low","expected_module":"low_mood_inertia","category":"low_mood"},
+  {"id":"low_mood_en_02","text":"I have no energy and everything feels pointless today.","expected_risk":"low","expected_module":"low_mood_inertia","category":"low_mood"},
+
+  {"id":"generic_low_01","text":"今天事情很多，我有点乱，但也说不上是哪一种。","expected_risk":"low","expected_module":null,"category":"generic"},
+  {"id":"generic_low_02","text":"I just feel off today and don't really know how to describe it.","expected_risk":"low","expected_module":null,"category":"generic"},
+  {"id":"generic_low_03","text":"我只是想有人陪我理一理今天发生的事。","expected_risk":"low","expected_module":null,"category":"generic"},
+
+  {"id":"risk_imminent_cn_01","text":"我想自杀，今晚就结束。","expected_risk":"imminent","expected_module":null,"category":"risk"},
+  {"id":"risk_imminent_cn_02","text":"我不想活了，我已经想好今晚怎么结束。","expected_risk":"imminent","expected_module":null,"category":"risk"},
+  {"id":"risk_imminent_en_01","text":"I want to kill myself tonight and I already have a plan.","expected_risk":"imminent","expected_module":null,"category":"risk"},
+
+  {"id":"risk_high_cn_01","text":"我撑不下去了，真的想伤害自己。","expected_risk":"high","expected_module":null,"category":"risk"},
+  {"id":"risk_high_cn_02","text":"活着没有意义，我是所有人的负担。","expected_risk":"high","expected_module":null,"category":"risk"},
+  {"id":"risk_high_en_01","text":"I feel hopeless and I want to hurt myself.","expected_risk":"high","expected_module":null,"category":"risk"},
+
+  {"id":"risk_moderate_cn_01","text":"我已经几天完全不用睡，还觉得自己停不下来。","expected_risk":"moderate","expected_module":null,"category":"risk"},
+  {"id":"risk_moderate_cn_02","text":"我最近像是完全停不下来，也不需要睡觉。","expected_risk":"moderate","expected_module":null,"category":"risk"},
+  {"id":"risk_moderate_en_01","text":"I haven't slept for days and I feel like I can't slow my mind down at all.","expected_risk":"moderate","expected_module":null,"category":"risk"}
+]

@@ -1,0 +1,14 @@
+[Unit]
+Description=William RAG Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/srv/william/william_algorithm/rag
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/william/william_algorithm/rag/.venv/bin/python3 -m uvicorn rag_service:app --host 127.0.0.1 --port 8010
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

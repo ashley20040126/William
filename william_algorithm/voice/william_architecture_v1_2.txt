@@ -1,0 +1,109 @@
+William 技术架构 v1.2
+
+================================
+0. 核心哲学
+================================
+Pattern First, Content Optional. (模式优先，内容可选)
+保护隐私，追求医疗级客观性，降低对不稳定 AI 模型的强依赖。
+
+================================
+1. 系统流转架构 (Streaming vs Batch)
+================================
+系统在物理边界上分为“实时流处理”与“周期性批处理”两部分，在 Layer 2 处进行物理落盘隔离。
+
+【边缘端 / 守护进程】 -> 实时流式处理 (Streaming, 1Hz)
+Layer 0 - Preprocessing 
+Layer 1 - Perception 
+Layer 2 - Events 
+=> 落盘：events.json / events.db
+
+【云端 / 定时任务】 -> 周期性批处理 (Periodic Batch, e.g., 每小时/每天)
+Layer 3 - Patterns 
+Layer 4 - Interpretation 
+Layer 5 - Support 
+
+================================
+2. 架构各层详细设计
+================================
+
+------------------------------------------------
+Layer 0: Preprocessing (预处理层)
+------------------------------------------------
+【目标】屏蔽各种输入设备的差异，提供统一的音频流。
+【输入】本地文件 / 麦克风录音 / 视频音轨
+【动作】
+- 格式解码 (Decode)
+- 重采样 (Resample) -> 强制 16kHz
+- 声道转换 (Mono) -> 强制单声道
+- 数据归一化 (Normalize) -> float32 格式，峰值归一化防止爆音。
+【输出】标准化的 `audio_stream`
+
+------------------------------------------------
+Layer 1: Perception (信号感知层)
+------------------------------------------------
+【目标】从标准化音频流中提取纯物理层面的特征切片（通常以 1 秒为窗口）。
+【输入】`audio_stream`
+【动作】
+- 语音活动检测 (VAD): 计算当前 1 秒内的 `speech_ratio`。
+- 基础声学特征提取 (Acoustic Features): 
+    - 能量 (RMS energy): 反映音量大小。
+    - 音高 (Pitch / F0) 及其方差: 反映语调起伏。
+- 高级声带微颤指标 (Vocal Biomarkers - 待后续迭代深入):
+    - 频率抖动 (Jitter) & 振幅抖动 (Shimmer): 反映疲劳或声带紧张度。
+- 信号质量检测 (Signal Quality):
+    - 计算信噪比 (SNR proxy)、检测底噪和爆音 (Clipping)。如果质量过低，打上 `LOW_QUALITY` 标签，防止后续误判。
+【输出】包含时间戳和各项数值的字典切片流 `features.jsonl`。
+
+------------------------------------------------
+Layer 2: Events (事件生成层)
+------------------------------------------------
+【目标】将破碎的秒级物理特征，基于**节律和规则**聚合成具有业务意义的宏观事件，并在此挂载辅助模型结果。
+【输入】`features.jsonl`
+【动作】
+- 状态分类 (State Classifier): 基于 `speech_ratio` 等，将每秒定性为 SPEECH, SILENCE, NOISE 等。
+- 片段合并与迟滞 (Segment Merge & Hysteresis): 桥接短暂停顿（如 < 1s），将连续的语音合并为长对话片段。
+- **[核心改进] 对话结构分析 (Conversation Structure)**: 
+    - 提取 `speaker_turns` (说话者交替频率), `pause_rhythm` (停顿节律)。
+    - 规则示例：如果持续出现 "高 speech_ratio -> 适当沉默 -> 再次高 speech_ratio" 的轮换结构，则判定为 `SOCIAL_INTERACTION`（社交互动）。
+- 辅助分支注入 (Optional Enrichment):
+    - **Emotion (置信度调节器)**: 对上述合并好的片段跑 Wav2Vec2。如果判定结果与物理特征一致（例如 高能量 + Angry），则提高该 Event 的 `confidence` 分数。反之则降低，但不改变事件本身。
+    - **ASR (语义线索)**: 在授权情况下，截取音频跑 Whisper，将 `transcript` 作为 Metadata 挂载到 Event 上。
+【输出】聚合后的业务事件列表 `events.json`。
+[落盘 / 存储边界]
+
+------------------------------------------------
+Layer 3: Patterns (模式比对层)
+------------------------------------------------
+【目标】进行时间维度上的统计，并与基线（Baseline）对比，发现偏离（Deviation）。
+【输入】`events.json` 及 数据库中的 `historical_baseline`
+【动作】
+- 日常统计 (Daily Aggregation): 计算今日总说话时长、沉默板块数、能量波动峰值次数等。
+- 基线对比 (Baseline Comparison):
+    - **[冷启动方案 v0] 群体常模**: 例如 "每日社交 < 10分钟" 则判定为 `lower_than_usual`。
+    - **[迭代方案 v1/v2] 个人基线**: 计算最近 7 天 / 30 天的滑动平均值 (Rolling Average) 和标准差，将今日数据与该分布对比。
+【输出】纯数学或统计学意义上的偏离报告 `patterns.json`（例如："social_activity: significantly_lower", "energy_variance: unusually_high"）。
+
+------------------------------------------------
+Layer 4: Interpretation (解释与画像层)
+------------------------------------------------
+【目标】引入 LLM，将冷冰冰的数学模式偏差，翻译成具有心理学视角的诊断叙事。
+【输入】`patterns.json`, `events.json` 中的特殊切片, User Profile。
+【动作】
+- 构建 Prompt，将今日的 Pattern 偏差喂给 LLM。
+- **[严格证据边界 Evidence Boundary]**: 
+    - 严禁 LLM 擅自捏造压力源。
+    - 如果事件中没有 ASR 文本，LLM 只能输出：“系统观察到用户的社交互动显著减少且作息出现碎片化，可能处于某种未知的外部压力或疲惫状态下。”
+    - 如果事件中包含 ASR 文本（如“那个项目经理太傻逼了”），LLM 才可以输出：“诱发其异常唤醒的压力源可能来自职场人际冲突。”
+【输出】结构化的心理画像和归因报告 `interpretation.json`。
+
+------------------------------------------------
+Layer 5: Support (支持与干预层)
+------------------------------------------------
+【目标】将心理画像转化为具体的 AI 交互策略。
+【输入】`interpretation.json`, 用户偏好。
+【动作】
+- 策略生成 (Strategy Generation): 决定该不该主动发起对话、用什么语气。
+- 动作示例：
+    - 如果 `interpretation` 显示高压力且有明确职场归因 -> 生成策略: `{"action": "active_chat", "tone": "empathetic", "opening_topic": "work_stress"}`
+    - 如果仅仅是社交孤立但无发泄 -> 生成策略: `{"action": "passive_check_in", "tone": "gentle", "opening_topic": "none", "suggestion": "play_white_noise"}`
+【输出】给后续对话机器人 (Django Bot) 的操作指令 `support_plan.json`。

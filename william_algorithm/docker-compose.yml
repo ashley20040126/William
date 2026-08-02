@@ -1,0 +1,63 @@
+services:
+  rag:
+    build:
+      context: ./rag
+    image: william-rag:latest
+    container_name: william-rag
+    restart: unless-stopped
+    ports:
+      - "8010:8010"
+    env_file:
+      - ./rag/.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./rag/rag_storage:/app/rag_storage
+      - ./rag/prompts:/app/prompts
+      - ./rag/mental_kb:/app/mental_kb
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8010/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  voice:
+    build:
+      context: ./voice
+    image: william-voice:latest
+    container_name: william-voice
+    restart: unless-stopped
+    ports:
+      - "8020:8020"
+    env_file:
+      - ./voice/.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8020/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+  django:
+    build:
+      context: ./django_expert_bot
+    image: william-django:latest
+    container_name: william-django
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./django_expert_bot/.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - django_db:/app/data
+      - ./django_expert_bot/data_storage:/app/data_storage
+    environment:
+      - ALLOWED_HOSTS=*
+
+volumes:
+  django_db:

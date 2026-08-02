@@ -1,0 +1,102 @@
+{
+  "version": "v1",
+  "name": "William Mental Health Safety Policy",
+  "resources": {
+    "us_crisis_line": {
+      "label": "988 Suicide & Crisis Lifeline",
+      "phone": "988",
+      "sms": "988",
+      "url": "https://988lifeline.org/get-help/"
+    },
+    "emergency": {
+      "label": "Local emergency services",
+      "phone": "911",
+      "note": "Use local emergency services if there is immediate danger."
+    }
+  },
+  "levels": {
+    "imminent": {
+      "description": "Immediate self-harm or suicide intent, plan, means, or time horizon.",
+      "response_mode": "crisis_handoff",
+      "keywords": [
+        "我要自杀",
+        "我想自杀",
+        "想结束生命",
+        "不想活了",
+        "我要去死",
+        "今晚就结束",
+        "现在就结束",
+        "kill myself",
+        "end my life",
+        "suicide plan",
+        "overdose tonight",
+        "jump off",
+        "cut myself tonight"
+      ]
+    },
+    "high": {
+      "description": "Strong hopelessness, entrapment, self-harm urges, or severe warning signs that need urgent human support.",
+      "response_mode": "urgent_support",
+      "keywords": [
+        "想伤害自己",
+        "伤害自己",
+        "割腕",
+        "自残",
+        "活着没有意义",
+        "没有理由活下去",
+        "撑不下去了",
+        "被困住了",
+        "绝望",
+        "我是负担",
+        "hurt myself",
+        "self harm",
+        "hopeless",
+        "trapped",
+        "unbearable pain",
+        "burden to others"
+      ]
+    },
+    "moderate": {
+      "description": "Possible psychosis, mania, severe disorganization, or safety-sensitive situations needing careful limitation and referral language.",
+      "response_mode": "contain_and_limit",
+      "keywords": [
+        "幻听",
+        "有人在控制我",
+        "停不下来几天不睡",
+        "完全不用睡",
+        "不需要睡觉",
+        "冲动到控制不住",
+        "家暴",
+        "暴力威胁",
+        "hallucination",
+        "voices tell me",
+        "haven't slept for days",
+        "manic",
+        "domestic violence"
+      ]
+    }
+  },
+  "general_rules": [
+    "Do not present yourself as a therapist, psychiatrist, or emergency responder.",
+    "Do not provide instructions for self-harm, suicide, violence, or concealment.",
+    "If risk is high or imminent, do not continue normal reflective coaching. Prioritize immediate human support and practical next steps.",
+    "If the user appears to be outside the United States, mention local emergency services in addition to 988."
+  ],
+  "source_refs": [
+    {
+      "title": "Warning Signs",
+      "organization": "988 Suicide & Crisis Lifeline",
+      "url": "https://988lifeline.org/learn/warning-signs/"
+    },
+    {
+      "title": "Get Help",
+      "organization": "988 Suicide & Crisis Lifeline",
+      "url": "https://988lifeline.org/get-help/"
+    },
+    {
+      "title": "Depression in adults: treatment and management",
+      "organization": "NICE",
+      "url": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendations"
+    }
+  ]
+}

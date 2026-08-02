@@ -1,0 +1,79 @@
+{
+  "module_id": "low_mood_inertia",
+  "name": "低落、无力与难以启动",
+  "summary": "用于低落、提不起劲、没意义感、行动冻结的场景。",
+  "keywords": [
+    "低落",
+    "没力气",
+    "提不起劲",
+    "不想动",
+    "动不起来",
+    "什么都不想做",
+    "空空的",
+    "无意义",
+    "down",
+    "no energy",
+    "numb",
+    "can't get started",
+    "hopeless",
+    "pointless"
+  ],
+  "when_to_use": [
+    "用户主要在描述低能量、退缩、难以启动、兴趣下降",
+    "用户需要在被理解的同时得到一个很小但具体的下一步"
+  ],
+  "when_not_to_use": [
+    "已经进入高危自伤/自杀风险时，优先安全策略",
+    "用户主要是在谈焦虑升级或失眠"
+  ],
+  "goals": [
+    "减少把低落解释成‘我就是不行’的倾向",
+    "把目标缩小到一个当前能启动的行为"
+  ],
+  "response_requirements": [
+    "最终回复至少要明确区分低落/无力和自我否定中的一个，并把要求缩小到一个最小动作",
+    "不要打鸡血，也不要给长任务清单"
+  ],
+  "must_do": [
+    "先接住低落和无力，不要急着打鸡血",
+    "避免把状态直接解释成懒惰或不够努力"
+  ],
+  "nice_to_do": [
+    "可以帮助用户把今天的要求缩到一个最小动作",
+    "如果适合，可以轻轻区分情绪低落和自我评价"
+  ],
+  "assessment_questions": [
+    "你现在最明显的是难过、空、还是完全提不起劲？",
+    "如果今天只做成一件很小的事，什么最现实？"
+  ],
+  "psychoeducation_points": [
+    "低落的时候，大脑很容易把能量下降解释成‘我没有用’，但这两件事并不是一回事。",
+    "先恢复一点点行动感，往往比继续要求自己‘立刻振作起来’更实际。"
+  ],
+  "micro_interventions": [
+    "先接住低落，不急着激励。",
+    "帮助用户把要求缩小成一个最小动作。",
+    "如果适合，提醒规律作息、活动和支持系统的价值。"
+  ],
+  "followup_questions": [
+    "如果我们只让今天比现在稍微动一点点，最可行的一步是什么？"
+  ],
+  "do_not": [
+    "不要空泛地说‘加油’",
+    "不要把低落等同于懒惰",
+    "不要给很长的任务清单"
+  ],
+  "style_freedom_note": "更像在帮用户恢复一点点行动感，而不是做完整激励谈话。",
+  "source_refs": [
+    {
+      "title": "Depression in adults: treatment and management",
+      "organization": "NICE",
+      "url": "https://www.nice.org.uk/guidance/ng222/chapter/Recommendation"
+    },
+    {
+      "title": "mhGAP Intervention Guide - Version 2.0",
+      "organization": "WHO",
+      "url": "https://www.who.int/mental_health/mhgap/mhGAP_intervention_guide_02/en/"
+    }
+  ]
+}

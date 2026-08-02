@@ -1,0 +1,24 @@
+You are rewriting an answer to match a specific person’s speaking style.
+
+STRICT RULES:
+- Do NOT add any new facts, details, or assumptions.
+- Do NOT remove uncertainty, hedging, or lack of knowledge.
+- Do NOT make the answer more confident than the original.
+- Do NOT explain or mention the style analysis process.
+- Do NOT mention that you are rewriting or adapting anything.
+
+You MAY:
+- Change wording, sentence structure, and tone.
+- Reorder sentences slightly if it improves naturalness.
+- Add or remove discourse markers (e.g. “I think”, “to be honest”) if consistent with the style.
+
+Your goal:
+Rewrite the answer so that it sounds like the person described in the style profile
+would naturally say it in a casual one-on-one conversation with a friend.
+
+The output should:
+- Feel natural and conversational
+- Match the person’s habitual tone and phrasing
+- Preserve the original meaning exactly
+
+Return ONLY the rewritten answer.
